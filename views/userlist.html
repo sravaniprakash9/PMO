@@ -1,0 +1,47 @@
+<!doctype html>
+<html ng-app="pmoApp">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="stylesheets/style.css" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script><!-- 
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script> -->
+<script src="/javascripts/moment.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
+
+  <script type="text/javascript" src="/javascripts/controllers.js"> </script>
+  </head>
+  <body ng-controller="loginCtrl">
+<div class="container">
+
+   <form method="post" action="/index" ng-controller="loginCtrl">
+        
+        <div class="row">
+        
+          <label >Username</label>
+                 <select id="Name" name="Name" data-role="listview" data-inset="true" ng-model="currentUser.name" ng-change="update(currentUser.name)">
+                   <option ng-repeat="option in userNames">{{option}}</option>
+                 </select>
+              
+           </div>
+        <div class="row">  
+          <label>ID</label>
+          <input type="text" name="EmpID" id="EmpID" ng-model="currentUser.ID">
+        </div>
+        <div class="row">
+          <input type="submit" value="Login">
+      </div>
+    </form>
+   </div>
+  
+  </body>
+</html>
+
+
+
