@@ -25,12 +25,12 @@
         <div class="row">
         
           <label >Username</label>
-                 <select id="Name" name="Name" data-role="listview" data-inset="true" ng-model="currentUser.name" ng-change="update(currentUser.name)">
-                   <option ng-repeat="option in userNames">{{option}}</option>
+                 <select id="Name" name="Name" data-role="listview" data-inset="true" ng-model="currentUser.Value" ng-change="update(currentUser.Value)">
+                   <option ng-repeat="option in values">{{option}}</option>
                  </select>
               
            </div>
-        <div class="row">  
+        <div class="row" style="display:none">  
           <label>ID</label>
           <input type="text" name="EmpID" id="EmpID" ng-model="currentUser.ID">
         </div>
@@ -38,6 +38,10 @@
           <input type="submit" value="Login">
       </div>
     </form>
+    
+   <form method="post" action="/report">   
+    <input type="submit" value="Report">
+ </form>
    </div>
   
   </body>

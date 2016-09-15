@@ -3,11 +3,12 @@ var app = angular.module('pmoApp', []);
 
 
 
-app.controller('userCtrl', function($scope , $rootScope,$http,setUser) {
-   
+app.controller('userCtrl', function($scope , $rootScope,$http) {
+   var res=angular.element('#Name').val();
+   var values=res.split("-");
    $rootScope.currentUser={
-   "Name":angular.element('#Name').val(),
-    "ID":angular.element('#ID').val()
+   "Name":values[0],
+    "ID":values[1]
    };
    
     console.log('passed..'+JSON.stringify($rootScope.currentUser));
@@ -159,7 +160,7 @@ app.controller('userCtrl', function($scope , $rootScope,$http,setUser) {
         
 
          $http
-        .post('/addTimecard',{ "Exists":$scope.exists,"WeekID":$scope.weekYear,"user":$rootScope.currentUser,"projects":$rootScope.projects})
+        .post('/addTimecard',{ "Exists":$scope.exists,"WeekID":$scope.weekYear,"user":$rootScope.currentUser,"projects":$rootScope.projects,'Dates':$scope.today_full})
         .success(function(data){
           console.log('in posting..'+$scope.weekYear+'...exis'+$scope.exists+'....'+$rootScope.projects[0].temp);
             //what to do here? it's up to you and the data you write from server.
@@ -171,7 +172,7 @@ app.controller('userCtrl', function($scope , $rootScope,$http,setUser) {
 
 });
 
-app.controller('loginCtrl', function($scope , $rootScope,$http,setUser) {
+app.controller('loginCtrl', function($scope , $rootScope,$http) {
 
 $scope.cUser={
   "name":"",
@@ -189,10 +190,12 @@ $rootScope.currentUser={
             $scope.users = data;
             console.log('in user controller..'+JSON.stringify(data));
             $scope.userNames = [];
+            $scope.values=[]
             $scope.EmpID = [];
             for(var i=1;i<$scope.users.length;i++){
               $scope.userNames.push($scope.users[i].Name);
               $scope.EmpID.push($scope.users[i].EmpID);
+              $scope.values.push($scope.users[i].Name+'-'+$scope.users[i].EmpID);
             }
             
         })
@@ -202,26 +205,117 @@ $rootScope.currentUser={
 
 
 
-        
-$scope.setuser=setUser.set($rootScope.currentUser);
+
+});
+
+app.controller('reportCtrl', function($scope , $rootScope,$http) {
+ var currentDate,
+    next,
+    count,
+    countPrev,
+    weekStart,
+    weekEnd,
+    monthFormat='MMM',
+    yearFormat='YYYY',
+    shortWeekFormat = 'ddd D',
+    fullWeekFormat='YYYY-MM-DD',
+    weekYear='YYYY-WW';
+
+      
+  $http.get('/report')
+        .success(function(data) {
+            $scope.allUsers = data;
+            console.log('receiving..'+JSON.stringify($scope.allUsers));
+            $scope.finalUsers=[];
+            $scope.userProj=[{}];
+            $scope.TotalHours=[];
+            //$scope.temp=[];
+            $scope.cumulativeHours=[];
+            for(var i=0;i<$scope.allUsers.length;i++){
+
+              $scope.userDetails = {
+                "Name":$scope.allUsers[i].UserName,
+                "ID":$scope.allUsers[i].UserID,
+                "Hours":[],
+                "temp":[]
+              
+            };
+
+ 
+              for(var j=0;j<$scope.allUsers[i].Timecard.length;j++){
+                     
+                      $scope.userProj=$scope.allUsers[i].Timecard[j].ProjectHours;
+                      console.log('userProj...'+JSON.stringify($scope.userProj));
+                      for(var k=1;k<6;k++){
+                      var temp=0;
+                      for(var j=0;j<$scope.userProj.length;j++){
+                        if($scope.userProj[j].Hours[k]!=null){
+                        temp=temp+parseInt($scope.userProj[j].Hours[k]);
+                    }
+                  }
+                   $scope.TotalHours.push(temp);
+                   
+              }
+                    console.log('total..'+$scope.TotalHours);
+                    console.log('j...'+$scope.allUsers[i].Timecard.length);
+                      $scope.userDetails.Hours.push({"WeekID":$scope.allUsers[i].Timecard[0].weekID,
+                  "Dates":$scope.allUsers[i].Timecard[0].Dates,
+                  "Total":$scope.TotalHours});
+                      $scope.userDetails.temp=$scope.TotalHours;
+                      console.log('userDetails...'+JSON.stringify($scope.userDetails));
+                      $scope.TotalHours=[];
+              }
+
+              
+                
+           //console.log('final...'+'Name,...'+$scope.allUsers[i].UserName+'...Hours'+$scope.TotalHours+'len.'+$scope.TotalHours.length);
+            $scope.finalUsers.push($scope.userDetails);
+             console.log('Final...'+JSON.stringify($scope.finalUsers));
+            }
+             setCurrentDate(moment(),0);
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+
+
+
+    function setCurrentDate(aMoment,c){
+      count=c;
+      currentDate = aMoment,
+      weekStart = currentDate.clone().startOf('week'),
+      weekEnd = currentDate.clone().endOf('week'),
+      $scope.month=currentDate.format(monthFormat);
+      $scope.year=currentDate.format(yearFormat);
+      $scope.weekYear=currentDate.format(weekYear);
+      $scope.today=[weekStart.day(0).format(shortWeekFormat),weekStart.day(1).format(shortWeekFormat),weekStart.day(2).format(shortWeekFormat),weekStart.day(3).format(shortWeekFormat),weekStart.day(4).format(shortWeekFormat),weekStart.day(5).format(shortWeekFormat),weekStart.day(6).format(shortWeekFormat)];
+      $scope.today_full=[weekStart.day(0).format(fullWeekFormat),weekStart.day(1).format(fullWeekFormat),weekStart.day(2).format(fullWeekFormat),weekStart.day(3).format(fullWeekFormat),weekStart.day(4).format(fullWeekFormat),weekStart.day(5).format(fullWeekFormat),weekStart.day(6).format(fullWeekFormat)];
+      
+
+    }
+
+     $scope.nextWeek = function(){
+    count=count+1;
+    console.log('count...'+count);
+    setCurrentDate(currentDate.add(7,'days'),count);
+    };
+
+  
+
+    $scope.prevWeek = function(){
+      //countPrev=0;
+      count=count-1;
+
+      //$scope.PrevInd.push(count);
+      setCurrentDate(currentDate.subtract(7,'days'),count);
+    };
+
+
+
 
 });
 
 
-app.service('setUser', function () {
-        this.property="";
-
-        this.get= function(){
-          console.log('getting...'+JSON.stringify(property));
-        return property;
-    };  
-      this.set= function(value){
-        property=value;
-        console.log('setting...'+JSON.stringify(property));
-    };  
-
-
-    });
 
 
 

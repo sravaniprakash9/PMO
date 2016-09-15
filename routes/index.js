@@ -19,6 +19,23 @@ router.post('/index', function(req, res) {
 
 });
 
+router.post('/report', function(req, res) {
+	console.log('report here');
+	 res.render('report', { Title:'Report of Employees'});
+
+});
+
+router.get('/report', function(req, res) {
+	var db = req.db;
+    var collection = db.get('Timecard_test');
+	 collection.find({},{},function(e,docs){
+         res.send(docs);
+    });
+
+});
+
+
+
 router.get('/userlist', function(req, res) {
     var db = req.db;
     var collection = db.get('Users');
@@ -26,6 +43,8 @@ router.get('/userlist', function(req, res) {
          res.send(docs);
     });
 });
+
+
 
 
 
