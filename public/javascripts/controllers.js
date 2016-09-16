@@ -112,6 +112,12 @@ app.controller('userCtrl', function($scope , $rootScope,$http) {
          //$rootScope.projects[j].temp=$rootScope.projects[j].InputValue[count];
           for(var i=0;i<$scope.userData.length;i++){
                if($scope.userData[i].project==$rootScope.projects[j].name){
+               /*for(var j=0;j<$scope.userData[i].Hours.length;j++){
+                if($scope.userData[i].Hours[j]==null || $scope.userData[i].Hours[j]==" " ){
+                    $scope.userData[i].Hours[j]=0;
+                }
+               } */
+                
                   $rootScope.projects[j].temp=$scope.userData[i].Hours; 
                }
           }
@@ -153,8 +159,16 @@ app.controller('userCtrl', function($scope , $rootScope,$http) {
         console.log('please');
          $scope.master=angular.copy($rootScope.projects);
          for(var j=0;j<$rootScope.projects.length;j++){
+          for(var i=0;i<$rootScope.projects[j].temp.length;i++){
+            if($rootScope.projects[j].temp==null && $rootScope.projects[j].temp==""){
+                        $rootScope.projects[j].temp=0;
+            }
+          }
+            
+
          $rootScope.projects[j].dayHours.push({'day':$scope.today_full,'Hours':$rootScope.projects[j].temp});
           }
+
           console.log('here,........'+JSON.stringify($scope.projects,null,3));
         
         

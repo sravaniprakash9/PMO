@@ -17,10 +17,10 @@
 
   <script type="text/javascript" src="/javascripts/controllers.js"> </script>
   </head>
-  <body ng-controller="userCtrl" >
+  <body ng-controller="userCtrl" > 
 <div class="container">
 
-   <form name="Demo" ng-submit="submit()">
+   <form name="Demo" ng-submit="submit()" method="get" action="/">
 
       <h1>PROJECTS</h1>
       <div style="display:none">
@@ -56,9 +56,9 @@
                         <span class="glyphicon glyphicon-chevron-right"></span>
                       </button>
                     </div>
-                      <div class="col-sm-1" style="margin-left:0px;">
+                      <!-- <div class="col-sm-1" style="margin-left:0px;">
                         Status 
-                      </div>
+                      </div> -->
                       
            </div>
     </div>
@@ -84,11 +84,11 @@
                     </ul>
                   </div>
              
-               <div class="col-md-1 options">
+               <!-- <div class="col-md-1 options">
                  <select data-role="listview" data-inset="true" ng-model="project.Status" ng-change="update(project.Status)">
                    <option ng-repeat="option in options" ng-disabled="option.disabled">{{option.name}}</option>
                  </select>
-               </div>
+               </div> -->
           </div>
             </div>
         

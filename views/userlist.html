@@ -20,27 +20,27 @@
   <body ng-controller="loginCtrl">
 <div class="container">
 
-   <form method="post" action="/index" ng-controller="loginCtrl">
+   <form name="form" method="post" action="/index" ng-controller="loginCtrl" ng-submit="form.$valid">
         
         <div class="row">
         
           <label >Username</label>
-                 <select id="Name" name="Name" data-role="listview" data-inset="true" ng-model="currentUser.Value" ng-change="update(currentUser.Value)">
+                 <select id="Name" name="Name" data-role="listview" data-inset="true" ng-model="currentUser.Value" ng-change="update(currentUser.Value)" required>
                    <option ng-repeat="option in values">{{option}}</option>
                  </select>
-              
+              <span ng-show="form.Name.$invalid">**Name is required**</span>
            </div>
         <div class="row" style="display:none">  
           <label>ID</label>
           <input type="text" name="EmpID" id="EmpID" ng-model="currentUser.ID">
         </div>
         <div class="row">
-          <input type="submit" value="Login">
+          <input type="submit" value="Login" ng-disabled='form.Name.$invalid'>
       </div>
     </form>
     
    <form method="post" action="/report">   
-    <input type="submit" value="Report">
+    <input type="submit" value="Weekly Report">
  </form>
    </div>
   
