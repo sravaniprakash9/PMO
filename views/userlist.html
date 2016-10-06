@@ -18,15 +18,19 @@
   <script type="text/javascript" src="/javascripts/controllers.js"> </script>
   </head>
   <body ng-controller="loginCtrl">
-<div class="container">
+<div class="navbar" style="background-color:#1C2227;height:50px;color:#FFFFFF;padding-top:5px;font-weight:bold;font-size:25px;">
+  TIMESHEET
+    </div>
+
+<div class="container-login" style="margin-left:-1000px;">
 
    <form name="form" method="post" action="/index" ng-controller="loginCtrl" ng-submit="form.$valid">
-        
+        <h1 style="margin-left:-70px">Log In</h1>
         <div class="row">
         
           <label >Username</label>
                  <select id="Name" name="Name" data-role="listview" data-inset="true" ng-model="currentUser.Value" ng-change="update(currentUser.Value)" required>
-                   <option ng-repeat="option in values">{{option}}</option>
+                   <option ng-repeat="option in values | orderBy:sortBy">{{option}}</option>
                  </select>
               <span ng-show="form.Name.$invalid">**Name is required**</span>
            </div>
@@ -35,12 +39,12 @@
           <input type="text" name="EmpID" id="EmpID" ng-model="currentUser.ID">
         </div>
         <div class="row">
-          <input type="submit" value="Login" ng-disabled='form.Name.$invalid'>
+          <input type="submit" value="Login" style="width:80px;margin-left:-56px;margin-top:20px;" ng-disabled='form.Name.$invalid'>
       </div>
     </form>
     
-   <form method="post" action="/report">   
-    <input type="submit" value="Weekly Report">
+   <form method="post" action="/report" novalidate ng-submit="ReportSubmit()">   
+    <input type="submit" style="width:120px;margin-left:-56px;margin-top:-410px;" value="Weekly Report" >
  </form>
    </div>
   

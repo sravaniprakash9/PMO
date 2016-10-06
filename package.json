@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "angular-web-notification": "^1.0.13",
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -16,7 +17,7 @@
     "mongoose": "~3.6.13",
     "monk": "0.7.1",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0",
-    "node-restful": "^0.1.17"
+    "node-restful": "^0.1.17",
+    "serve-favicon": "~2.3.0"
   }
 }

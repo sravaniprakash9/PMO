@@ -42,20 +42,34 @@ section, footer, header, aside, nav{
 
 form{
 	width:120%;
-	box-shadow: 0 1px 1px #ccc;
+	/*box-shadow: 0 1px 1px #ccc;*/
 	/*padding: 35px 60px;*/
-	margin: 80px auto;
-	margin-top:150px;
+	margin: 125px auto;
+	margin-top:177px;
+	margin-left: 280px;
+
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 form h1{
     
-    margin-left: -210px;
+
 	font-size:50px;
 	font-family: initial;
 	font-weight: normal;
 	line-height:1;
-	text-shadow:0 3px 0 rgba(0,0,0,0.1);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
+    text-transform: uppercase;
+    text-align: center;
+    color: #666;
+    margin: 0 0 30px 0;
+    letter-spacing: 4px;
+    font: normal 26px/1 Verdana, Helvetica;
+    position: relative;
+	
 }
 
 form ol{
@@ -70,7 +84,6 @@ form ol{
 form ol li{
 
 	margin-bottom:8px;
-	box-shadow:0 1px 1px rgba(0,0,0,0.1);
 	cursor:pointer;
 }
 
@@ -90,7 +103,10 @@ form ol li span{
 form ol li.active{
 	background-color:#8ec16d;
 }
-
+div .container{
+	    padding-left: 205px !important;
+	        /*width: 78% !important;*/
+}
 div .row-header{
 	padding:20px 30px;
 	font-weight:bold;
@@ -101,9 +117,14 @@ div .row-header{
 	text-align:-webkit-auto;
 }
 
+div .divTextfield{
+	padding-left: 49px !important;
+}
+
 
 .textField{
-	width:32px;
+	width:38px;
+	height:42px;
 	margin-right:15px !important; 
 	float:left;
 }
@@ -128,7 +149,7 @@ div .row-header{
   	height:50px;
 }
  .nav-tabs li{
- 	padding-right:46px !important;
+ 	padding-right:53px !important;
  	width:324px !important;
  	font-size:16px;
  }
@@ -162,6 +183,17 @@ div .row-header{
     
     vertical-align:middle;
 }
+.total li{
+	display:table-cell;
+	
+	   
+    position:relative;
+    text-align:center;
+    cursor:grab;
+    cursor:-webkit-grab;
+    
+    vertical-align:middle;
+}
 
 .active a{
 
@@ -180,6 +212,25 @@ div .row-header{
 }
 .btn-primary{
 	    background-color: gray !important;
+}
+
+.h1{
+    
+
+	font-size:25px !important;
+	font-family: initial;
+	font-weight: normal;
+	line-height:1;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
+    text-transform: uppercase;
+    text-align: center;
+    color: #666;
+    margin: 0 0 30px 0;
+    letter-spacing: 4px;
+    font: normal 26px/1 Verdana, Helvetica;
+    position: relative;
+	
+}
 }
 
 

@@ -114,12 +114,14 @@ router.post('/addTimecard', function(req,res,next) {
         }
     });
      }
-     else
+
+
+     else if(exists=="2")
      {
- console.log('updating...'+JSON.stringify(temp1));
-     	
-     	collection.update({"UserID":user.ID,"Timecard.weekID":weekID},{$set:{"Timecard.$.ProjectHours":temp1
-    		}
+            console.log('updating...'+JSON.stringify(temp1));
+        
+        collection.update({"UserID":user.ID,"Timecard.weekID":weekID},{$set:{"Timecard.$.ProjectHours":temp1
+            }
 
     }, function (err, doc) {
         if (err) {
@@ -131,6 +133,26 @@ router.post('/addTimecard', function(req,res,next) {
         }
     });
      	
+     }
+     else{
+
+ console.log('pushing...'+JSON.stringify(temp1));
+        
+        collection.update({"UserID":user.ID},{$push: { "Timecard":{ "Dates":dates,"weekID":weekID,"ProjectHours":temp1 } }
+
+    }, function (err, doc) {
+        if (err) {
+            res.send("There was a problem adding the information to the database.");
+            console.log(err);
+        }
+        else {
+            res.send("Tjdfsbghvfkjhbg.");
+        }
+    });
+
+
+        
+
      }
     
 });
